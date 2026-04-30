@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_ecommerce_root" name="E-Commerce Sync" sequence="55"
+              web_icon="odoo_ecommerce_sync,static/description/icon.png"/>
+
+    <menuitem id="menu_ecommerce_backends" name="Backends"
+              parent="menu_ecommerce_root" sequence="10"
+              action="action_ecommerce_backends"/>
+
+    <menuitem id="menu_ecommerce_config" name="Configuration"
+              parent="menu_ecommerce_root" sequence="100"/>
+
+    <menuitem id="menu_ecommerce_logs" name="Sync Logs"
+              parent="menu_ecommerce_config" sequence="10"
+              action="action_sync_logs"/>
+
+    <menuitem id="menu_ecommerce_mappings" name="ID Mappings"
+              parent="menu_ecommerce_config" sequence="20"
+              action="action_sync_mappings"
+              groups="base.group_system"/>
+
+</odoo>

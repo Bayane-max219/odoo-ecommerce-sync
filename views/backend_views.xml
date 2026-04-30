@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ecommerce_backend_form" model="ir.ui.view">
+        <field name="name">ecommerce.backend.form</field>
+        <field name="model">ecommerce.backend</field>
+        <field name="arch" type="xml">
+            <form string="E-Commerce Backend">
+                <header>
+                    <button name="action_test_connection" string="Test Connection"
+                            type="object" class="oe_highlight"/>
+                    <button name="action_mark_connected" string="Mark as Connected"
+                            type="object" invisible="state == 'connected'"/>
+                    <button name="action_sync_products" string="Sync Products"
+                            type="object"
+                            invisible="state != 'connected' or not sync_products"/>
+                    <button name="action_sync_orders" string="Sync Orders"
+                            type="object"
+                            invisible="state != 'connected' or not sync_orders"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,connected"/>
+                </header>
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" text="Archived" bg_color="text-bg-danger"
+                            invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_sync_products" type="object"
+                                class="oe_stat_button" icon="fa-cubes"
+                                invisible="not sync_products">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="product_count"/></span>
+                                <span class="o_stat_text">Products</span>
+                            </div>
+                        </button>
+                        <button name="action_sync_orders" type="object"
+                                class="oe_stat_button" icon="fa-shopping-cart"
+                                invisible="not sync_orders">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="order_count"/></span>
+                                <span class="o_stat_text">Orders</span>
+                            </div>
+                        </button>
+                        <button name="action_process_queue" type="object"
+                                class="oe_stat_button" icon="fa-clock-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="queue_count"/></span>
+                                <span class="o_stat_text">Queue</span>
+                            </div>
+                        </button>
+                        <button name="action_process_queue" type="object"
+                                class="oe_stat_button" icon="fa-exclamation-triangle"
+                                invisible="error_count == 0">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="error_count"/></span>
+                                <span class="o_stat_text">Errors</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Backend Name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Connection">
+                            <field name="platform"/>
+                            <field name="store_url"/>
+                            <field name="api_key" password="True"/>
+                            <field name="api_secret" password="True"/>
+                            <field name="webhook_secret" password="True"/>
+                        </group>
+                        <group string="Settings">
+                            <field name="warehouse_id"/>
+                            <field name="pricelist_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Sync Options">
+                        <group>
+                            <field name="sync_products"/>
+                            <field name="sync_orders"/>
+                        </group>
+                        <group>
+                            <field name="sync_customers"/>
+                            <field name="sync_inventory"/>
+                        </group>
+                    </group>
+                    <group string="Last Sync">
+                        <field name="last_sync_products"/>
+                        <field name="last_sync_orders"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ecommerce_backend_list" model="ir.ui.view">
+        <field name="name">ecommerce.backend.list</field>
+        <field name="model">ecommerce.backend</field>
+        <field name="arch" type="xml">
+            <tree string="E-Commerce Backends">
+                <field name="name"/>
+                <field name="platform"/>
+                <field name="store_url"/>
+                <field name="product_count" string="Products"/>
+                <field name="order_count" string="Orders"/>
+                <field name="queue_count" string="Queue"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'connected'"
+                       decoration-warning="state == 'error'"
+                       decoration-info="state == 'draft'"/>
+                <field name="last_sync_orders" string="Last Order Sync"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_ecommerce_backends" model="ir.actions.act_window">
+        <field name="name">E-Commerce Backends</field>
+        <field name="res_model">ecommerce.backend</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

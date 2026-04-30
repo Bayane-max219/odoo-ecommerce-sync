@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_sync_mapping_list" model="ir.ui.view">
+        <field name="name">ecommerce.sync.mapping.list</field>
+        <field name="model">ecommerce.sync.mapping</field>
+        <field name="arch" type="xml">
+            <tree string="Sync Mappings" create="0">
+                <field name="backend_id"/>
+                <field name="model"/>
+                <field name="external_id"/>
+                <field name="odoo_id"/>
+                <field name="last_sync"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sync_mapping_search" model="ir.ui.view">
+        <field name="name">ecommerce.sync.mapping.search</field>
+        <field name="model">ecommerce.sync.mapping</field>
+        <field name="arch" type="xml">
+            <search string="Sync Mappings">
+                <field name="backend_id"/>
+                <field name="external_id"/>
+                <field name="model"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_backend" string="Backend"
+                            context="{'group_by': 'backend_id'}"/>
+                    <filter name="group_model" string="Model"
+                            context="{'group_by': 'model'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_sync_mappings" model="ir.actions.act_window">
+        <field name="name">Sync Mappings</field>
+        <field name="res_model">ecommerce.sync.mapping</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_sync_mapping_search"/>
+    </record>
+
+</odoo>

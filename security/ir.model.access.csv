@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ecommerce_backend,ecommerce.backend,model_ecommerce_backend,base.group_system,1,1,1,1
+access_ecommerce_backend_user,ecommerce.backend user,model_ecommerce_backend,base.group_user,1,0,0,0
+access_sync_queue,ecommerce.sync.queue,model_ecommerce_sync_queue,base.group_system,1,1,1,1
+access_sync_log,ecommerce.sync.log,model_ecommerce_sync_log,base.group_user,1,0,0,0
+access_sync_log_write,ecommerce.sync.log write,model_ecommerce_sync_log,base.group_system,1,1,1,1
+access_sync_mapping,ecommerce.sync.mapping,model_ecommerce_sync_mapping,base.group_system,1,1,1,1
